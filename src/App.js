@@ -3,8 +3,10 @@ import Category from "./components/Category";
 import Sort from "./components/Sort";
 import Pizza from "./components/Pizza";
 
+import pizzasJson from './assets/pizzas.json'
 
 function App() {
+  // console.log(pizzasJson);
   return (
     <div className="wrapper">
       <Header />
@@ -16,10 +18,19 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            <Pizza title="Пицца-1" price="1489" />
-            <Pizza title="Пицца-2" price="148" />
-            <Pizza title="Пицца-3" price="14" />
-            <Pizza title="Пицца-4" price="1" />
+            {pizzasJson.map((pizza, key) =>
+              <Pizza key={key}
+                imageUrl={pizza.imageUrl}
+                title={pizza.title}
+                price={pizza.price}
+                types={pizza.types}
+                sizes={pizza.sizes}
+                category={pizza.category}
+                rating={pizza.rating}
+              />
+            )}
+
+
           </div>
         </div>
       </div>
