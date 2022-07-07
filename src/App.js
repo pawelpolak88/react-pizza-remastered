@@ -19,7 +19,7 @@ function App() {
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
             {pizzasJson.map((pizza, key) =>
-              <Pizza key={key}
+              <Pizza key={pizza.id}
                 imageUrl={pizza.imageUrl}
                 title={pizza.title}
                 price={pizza.price}
@@ -29,8 +29,6 @@ function App() {
                 rating={pizza.rating}
               />
             )}
-
-
           </div>
         </div>
       </div>
