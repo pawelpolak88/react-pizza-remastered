@@ -1,7 +1,7 @@
-import Category from "../components/Category";
-import Sort from "../components/Sort";
-import Pizza from "../components/Pizza";
-import PizzaSkeleton from "../components/PizzaSkeleton";
+import Category from "../components/Category/Category";
+import Sort from "../components/Sort/Sort";
+import Pizza from "../components/Pizza/Pizza";
+import PizzaSkeleton from "../components/PizzaSkeleton/PizzaSkeleton";
 import axios from "axios"
 import { useEffect, useState } from "react";
 
@@ -17,6 +17,7 @@ const Home = () => {
                 setItems(data)
                 setIsLoading(false)
             })
+        window.scrollTo(0, 0)
     }, [])
 
     return (
