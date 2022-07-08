@@ -1,20 +1,24 @@
 import { useState } from "react";
 
-const Sort = () => {
+const Sort = ({ sort, setSort }) => {
 
     const [isVisible, setIsVisible] = useState(false)
-    const [activeLi, setActiveLi] = useState(0)
 
-    const toggleActiveLi = (index) => {
-        setActiveLi(index)
+    const list = [
+        { name: 'популярности (DESC)', sortProperty: "rating" },
+        { name: 'популярности (ASC)', sortProperty: "-rating" },
+        { name: 'цене (DESC)', sortProperty: "price" },
+        { name: 'цене (ASC)', sortProperty: "-price" },
+        { name: 'алфавиту (DESC)', sortProperty: "title" },
+        { name: 'алфавиту (ASC)', sortProperty: "-title" },
+    ]
+
+
+    const toggleActiveLi = (obj) => {
+        setSort(obj)
         setIsVisible(false)
     }
 
-    const list = [
-        'популярности',
-        'цене',
-        'алфавиту',
-    ]
 
     return (
         <div className="sort">
@@ -34,19 +38,19 @@ const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsVisible(!isVisible)}>{list[activeLi]}</span>
+                <span onClick={() => setIsVisible(!isVisible)}>{sort.name}</span>
             </div>
 
             {isVisible &&
                 <div className="sort__popup">
                     <ul>
-                        {list.map((li, index) =>
+                        {list.map((obj, index) =>
                             <li
                                 key={index}
-                                className={activeLi === index ? 'active' : ''}
-                                onClick={() => toggleActiveLi(index)}
+                                onClick={() => toggleActiveLi(obj)}
+                                className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
                             >
-                                {li}
+                                {obj.name}
                             </li>
                         )}
 
