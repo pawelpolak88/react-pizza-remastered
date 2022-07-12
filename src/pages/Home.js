@@ -1,12 +1,16 @@
+import { useEffect, useState, useContext } from "react";
+import { SearchContext } from '../App';
+import axios from "axios"
 import Category from "../components/Category/Category";
 import Sort from "../components/Sort/Sort";
 import Pizza from "../components/Pizza/Pizza";
 import PizzaSkeleton from "../components/PizzaSkeleton/PizzaSkeleton";
-import axios from "axios"
-import { useEffect, useState } from "react";
 
 
-const Home = ({ searchValue }) => {
+
+const Home = () => {
+    const { searchValue } = useContext(SearchContext);
+
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
