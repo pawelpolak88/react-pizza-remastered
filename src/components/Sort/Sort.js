@@ -1,21 +1,25 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSort } from "../../redux/slices/filterSlice"
 
-const Sort = ({ sort, setSort }) => {
+const list = [
+    { name: 'популярности (DESC)', sortProperty: "rating" },
+    { name: 'популярности (ASC)', sortProperty: "-rating" },
+    { name: 'цене (DESC)', sortProperty: "price" },
+    { name: 'цене (ASC)', sortProperty: "-price" },
+    { name: 'алфавиту (DESC)', sortProperty: "title" },
+    { name: 'алфавиту (ASC)', sortProperty: "-title" },
+]
+
+
+const Sort = () => {
+    const dispach = useDispatch()
+    const { sort } = useSelector(state => state.filter)
 
     const [isVisible, setIsVisible] = useState(false)
 
-    const list = [
-        { name: 'популярности (DESC)', sortProperty: "rating" },
-        { name: 'популярности (ASC)', sortProperty: "-rating" },
-        { name: 'цене (DESC)', sortProperty: "price" },
-        { name: 'цене (ASC)', sortProperty: "-price" },
-        { name: 'алфавиту (DESC)', sortProperty: "title" },
-        { name: 'алфавиту (ASC)', sortProperty: "-title" },
-    ]
-
-
     const toggleActiveLi = (obj) => {
-        setSort(obj)
+        dispach(setSort(obj))
         setIsVisible(false)
     }
 

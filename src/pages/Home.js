@@ -1,6 +1,10 @@
 import { useEffect, useState, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveCategory } from "../redux/slices/filterSlice"
+
 import { SearchContext } from '../App';
 import axios from "axios"
+
 import Category from "../components/Category/Category";
 import Sort from "../components/Sort/Sort";
 import Pizza from "../components/Pizza/Pizza";
@@ -9,13 +13,13 @@ import PizzaSkeleton from "../components/PizzaSkeleton/PizzaSkeleton";
 
 
 const Home = () => {
+    const dispach = useDispatch()
+    const { activeCategory, sort } = useSelector(state => state.filter)
+
     const { searchValue } = useContext(SearchContext);
 
     const [items, setItems] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-
-    const [activeCategory, setActiveCategory] = useState(0)
-    const [sort, setSort] = useState({ name: 'популярности', sortProperty: "rating" })
 
     const skeleton = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />)
     const pizzas = items.map((item, key) =>
@@ -29,7 +33,6 @@ const Home = () => {
             rating={item.rating}
         />
     )
-
 
     useEffect(() => {
         setIsLoading(true)
@@ -51,8 +54,8 @@ const Home = () => {
     return (
         <>
             <div className="content__top">
-                <Category activeCategory={activeCategory} setActiveCategory={(i) => setActiveCategory(i)} />
-                <Sort sort={sort} setSort={(i) => setSort(i)} />
+                <Category activeCategory={activeCategory} setActiveCategory={(id) => dispach(setActiveCategory(id))} />
+                <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
