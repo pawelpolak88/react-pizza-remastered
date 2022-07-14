@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { current } from "@reduxjs/toolkit";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSort } from "../../redux/slices/filterSlice"
 
@@ -16,6 +17,8 @@ const Sort = () => {
     const dispach = useDispatch()
     const { sort } = useSelector(state => state.filter)
 
+    const sortRef = useRef()
+
     const [isVisible, setIsVisible] = useState(false)
 
     const toggleActiveLi = (obj) => {
@@ -23,9 +26,25 @@ const Sort = () => {
         setIsVisible(false)
     }
 
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (!event.path.includes(sortRef.current)) {
+                setIsVisible(false);
+            }
+        }
+
+        document.body.addEventListener("click", handleOutsideClick)
+
+        return () => {
+            document.body.removeEventListener("click", handleOutsideClick)
+        }
+
+
+    }, [])
+
 
     return (
-        <div className="sort">
+        <div className="sort" ref={sortRef}>
             <div
                 className="sort__label"
             >

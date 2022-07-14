@@ -22,15 +22,9 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     const skeleton = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />)
-    const pizzas = items.map((item, key) =>
-        <Pizza key={key}
-            imageUrl={item.imageUrl}
-            title={item.title}
-            price={item.price}
-            types={item.types}
-            sizes={item.sizes}
-            category={item.category}
-            rating={item.rating}
+    const pizzas = items.map((obj) =>
+        <Pizza key={obj.id}
+            {...obj}
         />
     )
 
