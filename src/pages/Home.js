@@ -1,10 +1,7 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveCategory } from "../redux/slices/filterSlice"
-import { fetchPizzas } from "../redux/slices/pizzaSlice"
-
-import { SearchContext } from '../App';
-
+import { setActiveCategory, selectCategory, selectSort, selectSearch } from "../redux/slices/filterSlice"
+import { fetchPizzas, selectPizza } from "../redux/slices/pizzaSlice"
 
 import Category from "../components/Category/Category";
 import Sort from "../components/Sort/Sort";
@@ -15,12 +12,10 @@ import PizzaSkeleton from "../components/PizzaSkeleton/PizzaSkeleton";
 
 const Home = () => {
     const dispatch = useDispatch()
-    const { activeCategory, sort } = useSelector(state => state.filter)
-    const { items, status } = useSelector(state => state.pizza)
-
-    const { searchValue } = useContext(SearchContext);
-
-
+    const activeCategory = useSelector(selectCategory)
+    const sort = useSelector(selectSort)
+    const searchValue = useSelector(selectSearch)
+    const { items, status } = useSelector(selectPizza)
 
     const skeletons = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />)
     const pizzas = items.map((obj) =>
@@ -28,7 +23,6 @@ const Home = () => {
             {...obj}
         />
     )
-
 
     const getPizzas = async () => {
         const category = activeCategory > 0 ? `category=${activeCategory}` : '';

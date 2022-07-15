@@ -3,10 +3,11 @@ import axios from "axios"
 
 export const fetchPizzas = createAsyncThunk(
     'pizza/fetchPizzasStatus',
-    async (params) => {
+    async (params, thunkAPI) => {
         const { category, sortBy, order, search } = params
         const { data } = await axios
             .get(`https://62c6d70b74e1381c0a6a40ec.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}&search=${search}`)
+
         return data
     }
 )
@@ -39,6 +40,8 @@ export const pizzaSlice = createSlice({
         }
     }
 })
+
+export const selectPizza = (state) => state.pizza
 
 export const { setItems } = pizzaSlice.actions
 
