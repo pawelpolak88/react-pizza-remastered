@@ -1,6 +1,11 @@
-import { useState } from "react";
+import React from "react";
 
-const Category = ({ activeCategory, setActiveCategory }) => {
+type CategoryProps = {
+    activeCategory: number;
+    setActiveCategory: any;
+}
+
+const Category: React.FC<CategoryProps> = ({ activeCategory, setActiveCategory }) => {
     const categories = [
         'Все',
         'Мясные',

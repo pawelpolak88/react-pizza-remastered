@@ -3,14 +3,15 @@ import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from "react-redux"
 import { selectCart } from "../../redux/slices/cartSlice";
 
-import { Search } from "../Search/Search";
+import Search from "../Search/Search";
 
-const Header = () => {
+const Header: React.FC = () => {
     const { totalPrice, items } = useSelector(selectCart)
 
     const location = useLocation()
 
-    const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+    //fix any
+    const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0)
 
     return (
         <div className="header">

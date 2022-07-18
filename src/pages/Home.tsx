@@ -11,7 +11,7 @@ import PizzaSkeleton from "../components/PizzaSkeleton/PizzaSkeleton";
 
 
 
-const Home = () => {
+const Home: React.FC = () => {
     const dispatch = useDispatch()
     const activeCategory = useSelector(selectCategory)
     const sort = useSelector(selectSort)
@@ -19,7 +19,7 @@ const Home = () => {
     const { items, status } = useSelector(selectPizza)
 
     const skeletons = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />)
-    const pizzas = items.map((obj) =>
+    const pizzas = items.map((obj: any) =>
         <Link to={`/pizza/${obj.id}`} key={obj.id}>
             <Pizza
                 {...obj}
@@ -33,9 +33,14 @@ const Home = () => {
         const order = sort.sortProperty.includes('-') ? 'asc' : "desc"
         const search = searchValue ? searchValue : "";
 
-        dispatch(fetchPizzas({
-            category, sortBy, order, search
-        }))
+        dispatch(
+            // @ts-ignore
+            fetchPizzas({
+                category,
+                sortBy,
+                order,
+                search
+            }))
 
         window.scrollTo(0, 0)
     }
@@ -49,7 +54,7 @@ const Home = () => {
     return (
         <>
             <div className="content__top">
-                <Category activeCategory={activeCategory} setActiveCategory={(id) => dispatch(setActiveCategory(id))} />
+                <Category activeCategory={activeCategory} setActiveCategory={(id: number) => dispatch(setActiveCategory(id))} />
                 <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>

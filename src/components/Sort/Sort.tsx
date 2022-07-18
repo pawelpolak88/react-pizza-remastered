@@ -1,8 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSort, selectSort } from "../../redux/slices/filterSlice"
 
-const list = [
+type ListType = {
+    name: string;
+    sortProperty: string;
+}
+
+
+const list: ListType[] = [
     { name: 'популярности (DESC)', sortProperty: "rating" },
     { name: 'популярности (ASC)', sortProperty: "-rating" },
     { name: 'цене (DESC)', sortProperty: "price" },
@@ -12,21 +18,21 @@ const list = [
 ]
 
 
-const Sort = () => {
+const Sort: React.FC = () => {
     const dispach = useDispatch()
     const sort = useSelector(selectSort)
 
-    const sortRef = useRef()
+    const sortRef = useRef<HTMLDivElement>(null)
 
     const [isVisible, setIsVisible] = useState(false)
 
-    const toggleActiveLi = (obj) => {
+    const toggleActiveLi = (obj: ListType) => {
         dispach(setSort(obj))
         setIsVisible(false)
     }
 
     useEffect(() => {
-        const handleOutsideClick = (event) => {
+        const handleOutsideClick = (event: any) => {
             if (!event.path.includes(sortRef.current)) {
                 setIsVisible(false);
             }
