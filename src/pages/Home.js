@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom'
 import { setActiveCategory, selectCategory, selectSort, selectSearch } from "../redux/slices/filterSlice"
 import { fetchPizzas, selectPizza } from "../redux/slices/pizzaSlice"
 
@@ -19,9 +20,11 @@ const Home = () => {
 
     const skeletons = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />)
     const pizzas = items.map((obj) =>
-        <Pizza key={obj.id}
-            {...obj}
-        />
+        <Link to={`/pizza/${obj.id}`} key={obj.id}>
+            <Pizza
+                {...obj}
+            />
+        </Link>
     )
 
     const getPizzas = async () => {
