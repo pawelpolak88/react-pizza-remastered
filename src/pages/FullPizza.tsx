@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { Link, useParams, useNavigate } from "react-router-dom"
 
-const FullPizza = () => {
-    const [pizza, setPizza] = useState()
+const FullPizza: React.FC = () => {
+    const [pizza, setPizza] = useState<{
+        imageUrl: string;
+        title: string;
+        price: number;
+    }>();
     const { id } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchPizza() {
             try {
-                const { data } = await axios.get(`https://62c6d70b74e1381c0a6a40ec.mockapi.io/items/` + id)
+                const { data } = await axios.get(`https://62c6d70b74e1381c0a6a40ec.mockapi.io/items/${id}`)
                 setPizza(data)
             } catch (error) {
-                alert("Error to get pizza", error)
+                alert("Error to get pizza")
                 navigate('/')
             }
         }
@@ -22,7 +26,7 @@ const FullPizza = () => {
     }, [])
 
     if (!pizza) {
-        return 'Загрузка...'
+        return <>Загрузка...</>
     }
 
     return (
