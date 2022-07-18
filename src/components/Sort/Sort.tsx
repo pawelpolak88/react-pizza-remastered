@@ -7,7 +7,6 @@ type ListType = {
     sortProperty: string;
 }
 
-
 const list: ListType[] = [
     { name: 'популярности (DESC)', sortProperty: "rating" },
     { name: 'популярности (ASC)', sortProperty: "-rating" },
@@ -32,8 +31,11 @@ const Sort: React.FC = () => {
     }
 
     useEffect(() => {
-        const handleOutsideClick = (event: any) => {
-            if (!event.path.includes(sortRef.current)) {
+        const handleOutsideClick = (event: MouseEvent) => {
+            const _event = event as MouseEvent & {
+                path: Node[]
+            }
+            if (sortRef.current && !_event.path.includes(sortRef.current)) {
                 setIsVisible(false);
             }
         }
