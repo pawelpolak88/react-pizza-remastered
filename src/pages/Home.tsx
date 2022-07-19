@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../redux/store";
 import { Link } from 'react-router-dom'
 import { setActiveCategory, selectCategory, selectSort, selectSearch } from "../redux/slices/filterSlice"
 import { fetchPizzas, selectPizza } from "../redux/slices/pizzaSlice"
@@ -11,8 +12,9 @@ import PizzaSkeleton from "../components/PizzaSkeleton/PizzaSkeleton";
 
 
 
+
 const Home: React.FC = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const activeCategory = useSelector(selectCategory)
     const sort = useSelector(selectSort)
     const searchValue = useSelector(selectSearch)
@@ -20,11 +22,10 @@ const Home: React.FC = () => {
 
     const skeletons = [...new Array(6)].map((_, index) => <PizzaSkeleton key={index} />)
     const pizzas = items.map((obj: any) =>
-        <Link to={`/pizza/${obj.id}`} key={obj.id}>
-            <Pizza
-                {...obj}
-            />
-        </Link>
+        <Pizza
+            key={obj.id}
+            {...obj}
+        />
     )
 
     const getPizzas = async () => {
@@ -34,7 +35,6 @@ const Home: React.FC = () => {
         const search = searchValue ? searchValue : "";
 
         dispatch(
-            // @ts-ignore
             fetchPizzas({
                 category,
                 sortBy,
