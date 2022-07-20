@@ -23,7 +23,7 @@ const list: ListType[] = [
 
 
 const Sort: React.FC<SortProps> = memo(({ sort }) => {
-    useWhyDidYouUpdate('Sort', { sort })
+    // useWhyDidYouUpdate('Sort', { sort })
 
     const dispach = useDispatch()
     // const sort = useSelector(selectSort)
