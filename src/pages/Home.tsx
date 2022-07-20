@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../redux/store";
 import { Link } from 'react-router-dom'
 import { setActiveCategory, selectCategory, selectSort, selectSearch } from "../redux/slices/filterSlice"
 import { fetchPizzas, selectPizza } from "../redux/slices/pizzaSlice"
+
 
 import Category from "../components/Category/Category";
 import Sort from "../components/Sort/Sort";
@@ -27,6 +28,10 @@ const Home: React.FC = () => {
             {...obj}
         />
     )
+
+    const onChangeCategory = useCallback((id: number) => {
+        dispatch(setActiveCategory(id))
+    }, [])
 
     const getPizzas = async () => {
         const category = activeCategory > 0 ? `category=${activeCategory}` : '';
@@ -54,8 +59,8 @@ const Home: React.FC = () => {
     return (
         <>
             <div className="content__top">
-                <Category activeCategory={activeCategory} setActiveCategory={(id: number) => dispatch(setActiveCategory(id))} />
-                <Sort />
+                <Category activeCategory={activeCategory} setActiveCategory={onChangeCategory} />
+                <Sort sort={sort} />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             {status === 'error' ? (

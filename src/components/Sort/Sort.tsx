@@ -1,10 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setSort, selectSort, SortPropertyEnum } from "../../redux/slices/filterSlice"
+import React, { useState, useRef, useEffect, memo } from "react";
+import { useDispatch } from "react-redux";
+import { setSort, SortType, SortPropertyEnum } from "../../redux/slices/filterSlice"
+import useWhyDidYouUpdate from 'ahooks/lib/useWhyDidYouUpdate';
 
 type ListType = {
     name: string;
     sortProperty: SortPropertyEnum;
+}
+
+type SortProps = {
+    sort: SortType
 }
 
 const list: ListType[] = [
@@ -17,9 +22,11 @@ const list: ListType[] = [
 ]
 
 
-const Sort: React.FC = () => {
+const Sort: React.FC<SortProps> = memo(({ sort }) => {
+    useWhyDidYouUpdate('Sort', { sort })
+
     const dispach = useDispatch()
-    const sort = useSelector(selectSort)
+    // const sort = useSelector(selectSort)
 
     const sortRef = useRef<HTMLDivElement>(null)
 
@@ -91,6 +98,6 @@ const Sort: React.FC = () => {
         </div>
     )
 }
-
+)
 
 export default Sort;

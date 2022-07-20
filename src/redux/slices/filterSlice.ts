@@ -11,7 +11,7 @@ export enum SortPropertyEnum {
 
 }
 
-type SortType = {
+export type SortType = {
     name: string,
     sortProperty: SortPropertyEnum
 }

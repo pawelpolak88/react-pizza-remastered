@@ -1,4 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
+
 
 type CategoryProps = {
     activeCategory: number;
@@ -14,7 +15,8 @@ const categories = [
     'Закрытые',
 ]
 
-const Category: React.FC<CategoryProps> = ({ activeCategory, setActiveCategory }) => {
+const Category: React.FC<CategoryProps> = memo(({ activeCategory, setActiveCategory }) => {
+
     return (
         <div className="categories">
             <ul>
@@ -31,5 +33,6 @@ const Category: React.FC<CategoryProps> = ({ activeCategory, setActiveCategory }
         </div>
     )
 }
+)
 
 export default Category;
